@@ -7,19 +7,15 @@ GOBJ_DECLARE_TYPE(animal_ifc, {void (*attack)(void * animal);})
 void bite(void * dog);
 void scratch(void * cat);
 
-struct gobj rufus = {
-    .attrs = GOBJ_SINIT_TABLE(
-        GOBJ_SINIT_RECORD(animal_attr, .name="Rufus", .sound="woof!"),
-        GOBJ_SINIT_RECORD(animal_ifc, .attack=bite)
-    )
-};
+void * rufus = GOBJ_SINIT_TABLE(
+    GOBJ_SINIT_RECORD(animal_attr, .name="Rufus", .sound="woof!"),
+    GOBJ_SINIT_RECORD(animal_ifc, .attack=bite)
+);
 
-struct gobj misifus = {
-    .attrs = GOBJ_SINIT_TABLE(
-        GOBJ_SINIT_RECORD(animal_attr, .name="Misifus", .sound="meow!"),
-        GOBJ_SINIT_RECORD(animal_ifc, .attack=scratch)
-    )
-};
+void * misifus = GOBJ_SINIT_TABLE(
+    GOBJ_SINIT_RECORD(animal_attr, .name="Misifus", .sound="meow!"),
+    GOBJ_SINIT_RECORD(animal_ifc, .attack=scratch)
+);
 
 void make_sound(void * animal)
 {
@@ -52,9 +48,9 @@ void attack(void * animal)
 }
 
 int main() {
-    make_sound(&rufus);
-    attack(&rufus);
-    make_sound(&misifus);
-    attack(&misifus);
+    make_sound(rufus);
+    attack(rufus);
+    make_sound(misifus);
+    attack(misifus);
     return 0;
 }

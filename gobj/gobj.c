@@ -3,13 +3,13 @@
 
 void * get_attr(void * obj, void * attr_id)
 {
-    struct gobj * gobj0 = obj;
+    struct tr * attr_table = obj;
     int i = 0;
-    while(gobj0->attrs[i].id != NULL)
+    while(attr_table[i].id != NULL)
     {
-        if(gobj0->attrs[i].id == attr_id)
+        if(attr_table[i].id == attr_id)
         {
-            return gobj0->attrs[i].val;
+            return attr_table[i].val;
         }
         i++;
     }

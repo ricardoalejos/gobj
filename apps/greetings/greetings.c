@@ -8,26 +8,20 @@ void spanish_greeting(void * person);
 void finnish_greeting(void * person);
 void english_greeting(void * person);
 
-struct gobj person0 = {
-    .attrs = GOBJ_SINIT_TABLE(
-        GOBJ_SINIT_RECORD(person_attr, .name="Ricardo"),
-        GOBJ_SINIT_RECORD(person_ifc, .greet=spanish_greeting)
-    )
-};
+void * person0 = GOBJ_SINIT_TABLE(
+    GOBJ_SINIT_RECORD(person_attr, .name="Ricardo"),
+    GOBJ_SINIT_RECORD(person_ifc, .greet=spanish_greeting)
+);
 
-struct gobj person1 = {
-    .attrs = GOBJ_SINIT_TABLE(
-        GOBJ_SINIT_RECORD(person_attr, .name="Petri"),
-        GOBJ_SINIT_RECORD(person_ifc, .greet=finnish_greeting)
-    )
-};
+void * person1 = GOBJ_SINIT_TABLE(
+    GOBJ_SINIT_RECORD(person_attr, .name="Petri"),
+    GOBJ_SINIT_RECORD(person_ifc, .greet=finnish_greeting)
+);
 
-struct gobj person2 = {
-    .attrs = GOBJ_SINIT_TABLE(
-        GOBJ_SINIT_RECORD(person_attr, .name="Fred"),
-        GOBJ_SINIT_RECORD(person_ifc, .greet=finnish_greeting)
-    )
-};
+void * person2 = GOBJ_SINIT_TABLE(
+    GOBJ_SINIT_RECORD(person_attr, .name="Fred"),
+    GOBJ_SINIT_RECORD(person_ifc, .greet=english_greeting)
+);
 
 void greet(void * person)
 {
@@ -51,8 +45,8 @@ void english_greeting(void * person)
 }
 
 int main() {
-    greet(&person0);
-    greet(&person1);
-    greet(&person2);
+    greet(person0);
+    greet(person1);
+    greet(person2);
     return 0;
 }
