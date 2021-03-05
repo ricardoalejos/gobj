@@ -9,24 +9,30 @@ void finnish_greeting(void * person);
 void english_greeting(void * person);
 
 struct gobj person0 = {
-    .attrs = GOBJ_SINIT_TABLE(GOBJ_SINIT_RECORD(person_attr, {.name="Ricardo"})),
-    .ifcs = GOBJ_SINIT_TABLE(GOBJ_SINIT_RECORD(person_ifc, {.greet=spanish_greeting}))
+    .attrs = GOBJ_SINIT_TABLE(
+        GOBJ_SINIT_RECORD(person_attr, {.name="Ricardo"}),
+        GOBJ_SINIT_RECORD(person_ifc, {.greet=spanish_greeting})
+    )
 };
 
 struct gobj person1 = {
-    .attrs = GOBJ_SINIT_TABLE(GOBJ_SINIT_RECORD(person_attr, {.name="Petri"})),
-    .ifcs = GOBJ_SINIT_TABLE(GOBJ_SINIT_RECORD(person_ifc, {.greet=finnish_greeting}))
+    .attrs = GOBJ_SINIT_TABLE(
+        GOBJ_SINIT_RECORD(person_attr, {.name="Petri"}),
+        GOBJ_SINIT_RECORD(person_ifc, {.greet=finnish_greeting})
+    )
 };
 
 struct gobj person2 = {
-    .attrs = GOBJ_SINIT_TABLE(GOBJ_SINIT_RECORD(person_attr, {.name="Fred"})),
-    .ifcs = GOBJ_SINIT_TABLE(GOBJ_SINIT_RECORD(person_ifc, {.greet=finnish_greeting}))
+    .attrs = GOBJ_SINIT_TABLE(
+        GOBJ_SINIT_RECORD(person_attr, {.name="Fred"}),
+        GOBJ_SINIT_RECORD(person_ifc, {.greet=finnish_greeting})
+    )
 };
 
 void greet(void * person)
 {
     printf("%s says: ", GOBJ_INTERPRET_ATTR(person, person_attr)->name);
-    GOBJ_INTERPRET_IFC(person, person_ifc)->greet(person);
+    GOBJ_INTERPRET_ATTR(person, person_ifc)->greet(person);
 }
 
 void spanish_greeting(void * person)
