@@ -10,22 +10,22 @@ void english_greeting(void * person);
 
 struct gobj person0 = {
     .attrs = GOBJ_SINIT_TABLE(
-        GOBJ_SINIT_RECORD(person_attr, {.name="Ricardo"}),
-        GOBJ_SINIT_RECORD(person_ifc, {.greet=spanish_greeting})
+        GOBJ_SINIT_RECORD(person_attr, .name="Ricardo"),
+        GOBJ_SINIT_RECORD(person_ifc, .greet=spanish_greeting)
     )
 };
 
 struct gobj person1 = {
     .attrs = GOBJ_SINIT_TABLE(
-        GOBJ_SINIT_RECORD(person_attr, {.name="Petri"}),
-        GOBJ_SINIT_RECORD(person_ifc, {.greet=finnish_greeting})
+        GOBJ_SINIT_RECORD(person_attr, .name="Petri"),
+        GOBJ_SINIT_RECORD(person_ifc, .greet=finnish_greeting)
     )
 };
 
 struct gobj person2 = {
     .attrs = GOBJ_SINIT_TABLE(
-        GOBJ_SINIT_RECORD(person_attr, {.name="Fred"}),
-        GOBJ_SINIT_RECORD(person_ifc, {.greet=finnish_greeting})
+        GOBJ_SINIT_RECORD(person_attr, .name="Fred"),
+        GOBJ_SINIT_RECORD(person_ifc, .greet=finnish_greeting)
     )
 };
 
