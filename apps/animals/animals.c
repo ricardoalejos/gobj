@@ -52,5 +52,17 @@ int main() {
     attack(rufus);
     make_sound(misifus);
     attack(misifus);
+
+    // Dynamic object creation and deletion
+    void * astro = GOBJ_CREATE(
+        GOBJ_GET_ID(animal_attr),
+        GOBJ_GET_ID(animal_ifc)
+    );
+    GOBJ_GET_ATTR(astro, animal_attr)->name = "Astro";
+    GOBJ_GET_ATTR(astro, animal_attr)->sound = "Guau!";
+    GOBJ_GET_ATTR(astro, animal_ifc)->attack = bite;
+    make_sound(astro);
+    attack(astro);
+    gobj_delete(astro);
     return 0;
 }
