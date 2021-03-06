@@ -1,32 +1,32 @@
 #include <stdio.h>
 #include "gobj.h"
 
-GOBJ_DECLARE_TYPE(person_attr, {char * name;})
-GOBJ_DECLARE_TYPE(person_ifc, {void (*greet)(void * person);})
+GOBJ_DECLARE(person_attr, {char * name;});
+GOBJ_DECLARE(person_ifc, {void (*greet)(void * person);});
 
 void spanish_greeting(void * person);
 void finnish_greeting(void * person);
 void english_greeting(void * person);
 
-void * person0 = GOBJ_SINIT_TABLE(
-    GOBJ_SINIT_RECORD(person_attr, .name="Ricardo"),
-    GOBJ_SINIT_RECORD(person_ifc, .greet=spanish_greeting)
+void * person0 = GOBJ_ST(
+    GOBJ_ITR(person_attr, .name="Ricardo"),
+    GOBJ_ITR(person_ifc, .greet=spanish_greeting)
 );
 
-void * person1 = GOBJ_SINIT_TABLE(
-    GOBJ_SINIT_RECORD(person_attr, .name="Petri"),
-    GOBJ_SINIT_RECORD(person_ifc, .greet=finnish_greeting)
+void * person1 = GOBJ_ST(
+    GOBJ_ITR(person_attr, .name="Petri"),
+    GOBJ_ITR(person_ifc, .greet=finnish_greeting)
 );
 
-void * person2 = GOBJ_SINIT_TABLE(
-    GOBJ_SINIT_RECORD(person_attr, .name="Fred"),
-    GOBJ_SINIT_RECORD(person_ifc, .greet=english_greeting)
+void * person2 = GOBJ_ST(
+    GOBJ_ITR(person_attr, .name="Fred"),
+    GOBJ_ITR(person_ifc, .greet=english_greeting)
 );
 
 void greet(void * person)
 {
-    printf("%s says: ", GOBJ_INTERPRET_ATTR(person, person_attr)->name);
-    GOBJ_INTERPRET_ATTR(person, person_ifc)->greet(person);
+    printf("%s says: ", GOBJ_GET_ATTR(person, person_attr)->name);
+    GOBJ_GET_ATTR(person, person_ifc)->greet(person);
 }
 
 void spanish_greeting(void * person)

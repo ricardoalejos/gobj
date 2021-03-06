@@ -1,32 +1,36 @@
 #include <stdio.h>
 #include "gobj.h"
 
-GOBJ_DECLARE_TYPE(person_attr, {char * name;})
-GOBJ_DECLARE_TYPE(person_ifc, {void (*farewell)(void * person);})
+GOBJ_DECLARE(person_attr, {char * name;})
+GOBJ_DECLARE(person_ifc, {void (*farewell)(void * person);})
+GOBJ_DECLARE(useless_attr, {char * useless;})
 
 void spanish_farewell(void * person);
-void finnish_farewell(void * person);
-void english_farewell(void * person);
 
-void * person0 = GOBJ_SINIT_TABLE(
-    GOBJ_SINIT_RECORD(person_attr, .name="Ricardo"),
-    GOBJ_SINIT_RECORD(person_ifc, .farewell=spanish_farewell)
+// Creation of an external table record (ETR) for later reference in
+// one or multiple tables.
+gobj_tr_t spanish_farewell_ifc = GOBJ_ETR(person_ifc, .farewell=spanish_farewell);
+
+// Static creation of a table
+void * person0 = GOBJ_ST(
+    // Addition of an ETR using their addresses
+    &spanish_farewell_ifc,
+    // Addition of an internal table record (ITR)
+    GOBJ_ITR(person_attr, .name="Ricardo")
 );
 
-void * person1 = GOBJ_SINIT_TABLE(
-    GOBJ_SINIT_RECORD(person_attr, .name="Petri"),
-    GOBJ_SINIT_RECORD(person_ifc, .farewell=finnish_farewell)
-);
-
-void * person2 = GOBJ_SINIT_TABLE(
-    GOBJ_SINIT_RECORD(person_attr, .name="Fred"),
-    GOBJ_SINIT_RECORD(person_ifc, .farewell=finnish_farewell)
+// Static creation of a table
+void * person1 = GOBJ_ST(
+    // Addition of an ETR using their addresses
+    &spanish_farewell_ifc,
+    // Addition of an internal table record (ITR)
+    GOBJ_ITR(person_attr, .name="Cecilia")
 );
 
 void farewell(void * person)
 {
-    printf("%s says: ", GOBJ_INTERPRET_ATTR(person, person_attr)->name);
-    GOBJ_INTERPRET_ATTR(person, person_ifc)->farewell(person);
+    printf("%s says: ", GOBJ_GET_ATTR(person, person_attr)->name);
+    GOBJ_GET_ATTR(person, person_ifc)->farewell(person);
 }
 
 void spanish_farewell(void * person)
@@ -34,19 +38,11 @@ void spanish_farewell(void * person)
     printf("adios!\n");
 }
 
-void finnish_farewell(void * person)
-{
-    printf("heippa!\n");
-}
-
-void english_farewell(void * person)
-{
-    printf("bye!\n");
-}
-
 int main() {
     farewell(person0);
     farewell(person1);
-    farewell(person2);
+    // Try to get an attribute that is not in the object
+    void * result = GOBJ_GET_ATTR(person0, useless_attr);
+    printf("Pointer to useless attribute is %p.\n", result);
     return 0;
 }
