@@ -6,6 +6,7 @@ GOBJ_DECLARE(person_ifc, {void (*farewell)(void * person);})
 GOBJ_DECLARE(useless_attr, {char * useless;})
 
 void spanish_farewell(void * person);
+void finnish_farewell(void * person);
 
 // Creation of an external table record (ETR) for later reference in
 // one or multiple tables.
@@ -27,6 +28,13 @@ void * person1 = GOBJ_ST(
     GOBJ_ITR(person_attr, .name="Cecilia")
 );
 
+// Static creation of a table
+void * person2 = GOBJ_ST(
+    // We add a different implementation of the farewell interface
+    GOBJ_ITR(person_ifc, .farewell=finnish_farewell),
+    GOBJ_ITR(person_attr, .name="Mikko")
+);
+
 void farewell(void * person)
 {
     printf("%s says: ", GOBJ_GET_ATTR(person, person_attr)->name);
@@ -38,9 +46,16 @@ void spanish_farewell(void * person)
     printf("adios!\n");
 }
 
+void finnish_farewell(void * person)
+{
+    printf("heippa!\n");
+}
+
 int main() {
+    // Let us execute the farewell function for each person
     farewell(person0);
     farewell(person1);
+    farewell(person2);
     // Try to get an attribute that is not in the object
     void * result = GOBJ_GET_ATTR(person0, useless_attr);
     printf("Pointer to useless attribute is %p.\n", result);
