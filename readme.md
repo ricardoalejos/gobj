@@ -106,3 +106,5 @@ Pointer to useless attribute is (nil).
 ```
 
 **Listing 2** - The console output of the app/greetings application.
+
+The "farewells" application uses static object allocation, which is nice for embedded systems. Check out the "animals" application to see a demonstration of dynamic object creation.
