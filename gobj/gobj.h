@@ -10,7 +10,7 @@ typedef struct tr
 #define GOBJ_ST(...) (struct tr * []){__VA_ARGS__, NULL}
 #define GOBJ_ETR(type, ...) {.id=&type##_id, .val=(struct type []){{__VA_ARGS__}}}
 #define GOBJ_ITR(type, ...) (struct tr *)&(struct tr []){{.id=&type##_id, .val=(struct type []){{__VA_ARGS__}}}}
-#define GOBJ_DECLARE(type, structure) struct type structure; void * type##_id;
+#define GOBJ_DECLARE(type, structure) struct type structure; size_t type##_id = sizeof(struct type);
 #define GOBJ_GET_ATTR(obj, attr_type) ((struct attr_type *)gobj_get_attr(obj, &attr_type##_id))
 
 void * gobj_get_attr(void * obj, void * attr_id);
