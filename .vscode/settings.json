@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "gobj.h": "c",
-        "type_traits": "c"
-    }
-}
