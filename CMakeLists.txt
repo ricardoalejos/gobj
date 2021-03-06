@@ -1,5 +1,16 @@
-cmake_minimum_required(VERSION 2.8)
-project(GOBJ C)
+cmake_minimum_required(VERSION 3.0)
+
+execute_process(
+    COMMAND git describe
+    OUTPUT_VARIABLE GOBJ_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+project(
+    GOBJ
+    LANGUAGES C
+    VERSION "${GOBJ_VERSION}")
+
+message("Preparing build for ${CMAKE_PROJECT_NAME} v${GOBJ_VERSION}")
 include(${CMAKE_CURRENT_SOURCE_DIR}/utils.cmake)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

@@ -74,3 +74,9 @@ void gobj_delete(void * gobj)
     // Delete table
     free(table);
 }
+
+
+char * gobj_get_version()
+{
+    return GOBJ_VERSION;
+}

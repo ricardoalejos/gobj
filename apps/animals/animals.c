@@ -48,6 +48,7 @@ void attack(void * animal)
 }
 
 int main() {
+    printf("GOBJ version: %s.\n", gobj_get_version());
     make_sound(rufus);
     attack(rufus);
     make_sound(misifus);

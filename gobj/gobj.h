@@ -32,5 +32,6 @@ gobj_delete(object);
 void * gobj_get_attr(void * obj, void * attr_id);
 void * gobj_create(size_t ** id_list);
 void gobj_delete(void * gobj);
+char * gobj_get_version();
 
 #endif
