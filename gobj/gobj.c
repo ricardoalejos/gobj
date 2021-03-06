@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include "gobj.h"
 
-void * get_attr(void * obj, void * attr_id)
+void * gobj_get_attr(void * obj, void * attr_id)
 {
     struct tr ** attr_table= obj;
     int i = 0;
