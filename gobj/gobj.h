@@ -1,6 +1,8 @@
 #ifndef _GOBJ_H_
 #define _GOBJ_H_
 
+#include <stddef.h>
+
 typedef struct tr
 {
     void * id;

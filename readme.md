@@ -108,3 +108,25 @@ Pointer to useless attribute is (nil).
 **Listing 2** - The console output of the app/greetings application.
 
 The "farewells" application uses static object allocation, which is nice for embedded systems. Check out the "animals" application to see a demonstration of dynamic object creation.
+
+## Build, install, and usage
+
+For building you will need `cmake`. 
+
+```shell
+./build.sh
+```
+
+Listing 3 - Build command.
+
+```shell
+sudo ./install.sh
+```
+
+Listing 4 - Install command.
+
+```shell
+gcc your_program.c -o your_program -lgobj
+```
+
+Listing 5 - How to link your programs to the GOBJ library.
