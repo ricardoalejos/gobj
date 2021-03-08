@@ -2,13 +2,19 @@ cmake_minimum_required(VERSION 3.0)
 
 execute_process(
     COMMAND git describe
-    OUTPUT_VARIABLE GOBJ_VERSION
+    OUTPUT_VARIABLE GOBJ_VERSION_DESCRIBE
     OUTPUT_STRIP_TRAILING_WHITESPACE)
+
+string(REGEX MATCH
+    "([0-9]+).([0-9]+).([0-9+])"
+    GOBJ_VERSION_CLEAN
+    ${GOBJ_VERSION_DESCRIBE}
+)
 
 project(
     GOBJ
     LANGUAGES C
-    VERSION "${GOBJ_VERSION}")
+    VERSION "${GOBJ_VERSION_CLEAN}")
 
 message("Preparing build for ${CMAKE_PROJECT_NAME} v${GOBJ_VERSION_MAJOR}.${GOB_VERSION_MINOR}.${GOBJ_VERSION_PATCH}")
 include(${CMAKE_CURRENT_SOURCE_DIR}/utils.cmake)
