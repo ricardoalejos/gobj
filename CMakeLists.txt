@@ -10,7 +10,7 @@ project(
     LANGUAGES C
     VERSION "${GOBJ_VERSION}")
 
-message("Preparing build for ${CMAKE_PROJECT_NAME} v${GOBJ_VERSION}")
+message("Preparing build for ${CMAKE_PROJECT_NAME} v${GOBJ_VERSION_MAJOR}.${GOB_VERSION_MINOR}.${GOBJ_VERSION_PATCH}")
 include(${CMAKE_CURRENT_SOURCE_DIR}/utils.cmake)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -21,3 +21,11 @@ include_directories(gobj)
 
 add_subdirectory(gobj)
 add_subdirectory(apps)
+add_subdirectory(docs)
+
+include(InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGE_VERSION_MAJOR "${GOBJ_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${GOBJ_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${GOBJ_VERSION_PATCH}")
+include(CPack)

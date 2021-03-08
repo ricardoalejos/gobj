@@ -1,0 +1,46 @@
+digraph structs {
+    fontname="Mono";
+    compound=true;
+    rankdir=LR;
+    edge [len = 3.0];
+    node [shape=Mrecord; fontname="Mono";];
+    root [label="<f0> void * obj"];
+    subgraph cluster_attr_index {
+        label="struct tr * []";
+        tr0p [label="<f0> attr_index[0]"];
+        tr1p [label="<f0> attr_index[1]"];
+        trEp [shape=none label="..."];
+        trNm1p [label="<f0> attr_index[N-1]"];
+        trNp [label="<f0> attr_index[N]"]
+    }
+
+    tr0 [label="{<tr> struct tr | {<id> void * id | <val> void * val}}"];
+    tr1 [label="{<tr> struct tr | {<id> void * id | <val> void * val}}"];
+    trNm1 [label="{<tr> struct tr | {<id> void * id | <val> void * val}}"];
+
+    id0 [label="<f0> size_t type0_id"];
+    val0 [label="<f0> struct type0 value"];
+    id1 [label="<f0> size_t type1_id"];
+    val1 [label="<f0> struct type1 value"];
+    idNm1 [label="<f0> size_t type\<N-1\>_id"];
+    valNm1 [label="<f0> struct type\<N-1\> value"];
+
+    null [shape=none; label="null"]
+
+    // connections
+    root -> tr0p [lhead=cluster_attr_index];
+
+    tr0p -> tr0:tr;
+    tr0:id -> id0;
+    tr0:val -> val0;
+    
+    tr1p -> tr1:tr;
+    tr1:id -> id1;
+    tr1:val -> val1;
+
+    trNm1p -> trNm1:tr;
+    trNm1:id -> idNm1;
+    trNm1:val -> valNm1;
+
+    trNp -> null;
+}
