@@ -29,7 +29,7 @@ void make_sound(void * animal)
 void bite(void * dog)
 {
     printf(
-        "%s has biten someone!\n",
+        "%s has bitten someone!\n",
         GOBJ_GET_ATTR(dog, animal_attr)->name
     );
 }
@@ -60,7 +60,7 @@ int main() {
         GOBJ_GET_ID(animal_ifc)
     );
     GOBJ_GET_ATTR(astro, animal_attr)->name = "Astro";
-    GOBJ_GET_ATTR(astro, animal_attr)->sound = "Guau!";
+    GOBJ_GET_ATTR(astro, animal_attr)->sound = "guau!";
     GOBJ_GET_ATTR(astro, animal_ifc)->attack = bite;
     make_sound(astro);
     attack(astro);

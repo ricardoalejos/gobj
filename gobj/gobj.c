@@ -22,31 +22,33 @@ void * gobj_create(size_t ** id_list)
     // Compute table size, and the size required to store attributes
     size_t table_size = 0;
     size_t attr_size = 0;
+    size_t object_size = 0;
+    uint8_t * object_base_address;
     while(id_list[table_size] != NULL)
     {
         attr_size += *(id_list[table_size++]);
     }
 
-    // Allocate pointers to the table (array of pointers to records)
-    struct tr ** table = (struct tr **)malloc((table_size + 1) * sizeof(struct tr *));
-    if (!table) return NULL;
+    // Allocate space for the entire object
+    object_size = (
+        (table_size + 1) * sizeof(struct tr *) +
+        table_size * sizeof(struct tr) +
+        attr_size
+    );
+    object_base_address = (uint8_t *)malloc(object_size);
+    if (!object_base_address) return NULL;
 
-    // Allocate records
-    struct tr * records = (struct tr *)malloc(table_size * sizeof(struct tr));
-    if (!records)
-    {
-        free(table);
-        return NULL;
-    }
-
-    // Allocate memory for all attributes
-    uint8_t * attr = (uint8_t *)malloc(attr_size);
-    if (!attr)
-    {
-        free(table);
-        free(records);
-        return NULL;
-    }
+    // Place the table, records, and attribute pointers within the object
+    struct tr ** table = (struct tr **)object_base_address;
+    struct tr * records = (struct tr *)(
+        object_base_address +
+        (table_size + 1) * sizeof(struct tr *)
+    );
+    uint8_t * attr = (
+        object_base_address +
+        (table_size + 1) * sizeof(struct tr *) +
+        table_size * sizeof(struct tr)
+    );
 
     // Fill table with records, and fill records with the attribute data
     table[table_size] = NULL;
@@ -63,16 +65,8 @@ void * gobj_create(size_t ** id_list)
 
 void gobj_delete(void * gobj)
 {
-    struct tr ** table = gobj;
-
-    // Delete block with attributes from the base
-    free(table[0]->val);
-
-    // Delete block with records from the base
-    free(table[0]);
-
-    // Delete table
-    free(table);
+    // Delete the object from its base address
+    free(gobj);
 }
 
 
