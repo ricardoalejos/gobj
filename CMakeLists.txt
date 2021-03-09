@@ -8,7 +8,8 @@ project(
     VERSION "${GOBJ_VERSION}")
 
 message("Preparing build for ${CMAKE_PROJECT_NAME} (version ${GOBJ_VERSION}).")
-
+set(CMAKE_INSTALL_LIBDIR lib)
+set(CMAKE_INSTALL_INCLUDEDIR include)
 configure_file(gobj.pc.in gobj.pc @ONLY)
 install(
     FILES ${CMAKE_BINARY_DIR}/gobj.pc 
