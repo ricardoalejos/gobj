@@ -2,6 +2,6 @@
 
 mkdir -p build
 pushd build
-cmake ..
+cmake .. -DGOBJ_VERSION=$(git describe | tr "\n" "\0")
 make
 popd
