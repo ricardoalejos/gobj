@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include "gobj.h"
 
-GOBJ_DECLARE(animal_attr, {char * name; char * sound;})
-GOBJ_DECLARE(animal_ifc, {void (*attack)(void * animal);})
+GOBJ_DECLARE(animal_attr, {char * name; char * sound;});
+GOBJ_INIT_ID(animal_attr);
+GOBJ_DECLARE(animal_ifc, {void (*attack)(void * animal);});
+GOBJ_INIT_ID(animal_ifc);
 
 void bite(void * dog);
 void scratch(void * cat);

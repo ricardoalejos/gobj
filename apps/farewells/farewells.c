@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include "gobj.h"
 
-GOBJ_DECLARE(person_attr, {char * name;})
-GOBJ_DECLARE(farewell_ifc, {void (*farewell)(void * person);})
-GOBJ_DECLARE(useless_attr, {char * useless;})
+GOBJ_DECLARE(person_attr, {char * name;});
+GOBJ_INIT_ID(person_attr);
+GOBJ_DECLARE(farewell_ifc, {void (*farewell)(void * person);});
+GOBJ_INIT_ID(farewell_ifc);
+GOBJ_DECLARE(useless_attr, {char * useless;});
+GOBJ_INIT_ID(useless_attr);
 
 void spanish_farewell(void * person);
 void finnish_farewell(void * person);

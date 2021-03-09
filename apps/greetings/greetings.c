@@ -2,7 +2,9 @@
 #include "gobj.h"
 
 GOBJ_DECLARE(person_attr, {char * name;});
+GOBJ_INIT_ID(person_attr);
 GOBJ_DECLARE(person_ifc, {void (*greet)(void * person);});
+GOBJ_INIT_ID(person_ifc);
 
 void spanish_greeting(void * person);
 void finnish_greeting(void * person);
