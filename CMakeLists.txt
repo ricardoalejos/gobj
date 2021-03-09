@@ -1,16 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
 option(GOBJ_VERSION "Version of the GOBJ library" "0.0.0")
-#execute_process(
-#    COMMAND git describe
-#    OUTPUT_VARIABLE GOBJ_VERSION_DESCRIBE
-#    OUTPUT_STRIP_TRAILING_WHITESPACE)
-
-#string(REGEX MATCH
-#    "([0-9]+).([0-9]+).([0-9+])"
-#    GOBJ_VERSION
-#    ${GOBJ_VERSION_DESCRIBE}
-#)
 
 project(
     GOBJ
@@ -18,6 +8,13 @@ project(
     VERSION "${GOBJ_VERSION}")
 
 message("Preparing build for ${CMAKE_PROJECT_NAME} (version ${GOBJ_VERSION}).")
+
+configure_file(gobj.pc.in gobj.pc @ONLY)
+install(
+    FILES ${CMAKE_BINARY_DIR}/gobj.pc 
+    DESTINATION lib/pkgconfig
+)
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/utils.cmake)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
