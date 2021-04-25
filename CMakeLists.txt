@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-option(GOBJ_VERSION "Version of the GOBJ library" "0.0.0")
+set(GOBJ_VERSION "2021.04.25193118")
 
 project(
     GOBJ
